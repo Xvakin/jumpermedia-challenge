@@ -8,7 +8,7 @@ import {
 
 export const getIssues = (repo, assignee, page) => ({
   types: [GET_ISSUES_REQUEST, GET_ISSUES_SUCCESS, GET_ISSUES_FAIL],
-  promise: ({ get }) => get(`https://api.github.com/repos/${repo}/issues`, {
+  promise: ({ get }) => get(`/api/repos/${repo}/issues`, {
     params: {
       assignee: assignee || null,
       page: page || null,
