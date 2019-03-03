@@ -1,9 +1,13 @@
 import axios from 'axios'
 
 export default function createApi() {
-  const request = (path, method, data = {}) => new Promise(async (resolve, reject) => {
+  const request = (url, method, options = {}) => new Promise(async (resolve, reject) => {
     try {
-      const response = await axios(path, method, data)
+      const response = await axios({
+        url,
+        method,
+        ...options,
+      })
       resolve(response.data)
     } catch (error) {
       reject(error.response)
