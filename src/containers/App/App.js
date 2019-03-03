@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Issues from '../Issues/Issues'
+import Issues from '../../components/Issues/Issues'
 import { getIssues, setRepo } from '../../redux/modules/issues/actions'
 import { issuesDataSelector, issuesErrorSelector } from '../../redux/modules/issues/selectors'
 import './App.css'
