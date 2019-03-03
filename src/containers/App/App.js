@@ -31,6 +31,7 @@ export class App extends Component {
   handleRepoFormSubmit = (event) => {
     event.preventDefault()
     const { repo } = this.props
+    this.props.setAssignee('')
     this.props.getIssues(repo)
   }
 

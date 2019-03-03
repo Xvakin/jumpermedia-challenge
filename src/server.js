@@ -18,6 +18,10 @@ app.get('/api/*', (req, res) => {
       const pagination = parse(headers.link)
       res.send({ data, pagination })
     })
+    .catch(error => {
+      res.status(error.status)
+      res.send(error)
+    })
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}`))
