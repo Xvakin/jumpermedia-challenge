@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Issues from '../Issues/Issues'
 import { getIssues, setRepo } from '../../redux/modules/issues/actions'
-import { issuesDataSelector } from '../../redux/modules/issues/selectors'
+import { issuesDataSelector, issuesErrorSelector } from '../../redux/modules/issues/selectors'
 import './App.css'
 
 export class App extends Component {
@@ -24,7 +24,11 @@ export class App extends Component {
   }
 
   render() {
-    const { issues, repo } = this.props
+    const {
+      issues,
+      issuesError,
+      repo,
+    } = this.props
     return (
       <div className="app">
         <div className="container">
@@ -43,7 +47,10 @@ export class App extends Component {
             </form>
           </div>
           <main>
-            <Issues issues={issues}/>
+            <Issues
+              issues={issues}
+              error={issuesError}
+            />
           </main>
         </div>
       </div>
@@ -53,6 +60,7 @@ export class App extends Component {
 
 const mapStateToProps = (state) => ({
   issues: issuesDataSelector(state),
+  issuesError: issuesErrorSelector(state),
   repo: state.issues.repo,
 })
 
@@ -63,6 +71,7 @@ const mapDispatchToProps = ({
 
 App.propTypes = {
   issues: PropTypes.array,
+  issuesError: PropTypes.string,
   repo: PropTypes.string,
 }
 

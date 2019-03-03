@@ -1,9 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function Issues({ issues }) {
+function Issues({ issues, error }) {
   return (
     <div>
+      {error &&
+      <div className="alert alert-warning">
+        {error}
+      </div>}
+      {!error &&
       <table className="table">
         <thead>
         <tr>
@@ -23,7 +28,7 @@ function Issues({ issues }) {
           </tr>
         ))}
         </tbody>
-      </table>
+      </table>}
     </div>
   )
 }

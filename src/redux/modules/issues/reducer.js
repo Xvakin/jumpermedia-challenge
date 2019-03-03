@@ -17,19 +17,21 @@ export default (state = initialState, action) => {
     case GET_ISSUES_REQUEST:
       return {
         ...state,
+        issuesError: null,
         loading: true,
       }
     case GET_ISSUES_SUCCESS:
       return {
         ...state,
-        loading: false,
         issues: action.result,
+        loading: false,
       }
     case GET_ISSUES_FAIL:
       return {
         ...state,
-        loading: false,
+        issues: null,
         issuesError: action.error,
+        loading: false,
       }
     case SET_REPO:
       return {
