@@ -9,7 +9,7 @@ import {
 
 const initialState = {
   assignee: '',
-  issues: null,
+  issuesData: null,
   issuesError: null,
   repo: DEFAULT_REPO,
 }
@@ -25,13 +25,13 @@ export default (state = initialState, action) => {
     case GET_ISSUES_SUCCESS:
       return {
         ...state,
-        issues: action.result,
+        issuesData: action.result,
         loading: false,
       }
     case GET_ISSUES_FAIL:
       return {
         ...state,
-        issues: null,
+        issuesData: null,
         issuesError: action.error,
         loading: false,
       }
