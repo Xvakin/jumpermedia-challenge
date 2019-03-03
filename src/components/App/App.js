@@ -15,8 +15,15 @@ export class App extends Component {
   render() {
     const { issues } = this.props
     return (
-      <div className="container">
-        <Issues issues={issues}/>
+      <div className="app">
+        <div className="container">
+          <header>
+            <h1>Github Issues</h1>
+          </header>
+          <main>
+            <Issues issues={issues}/>
+          </main>
+        </div>
       </div>
     )
   }
