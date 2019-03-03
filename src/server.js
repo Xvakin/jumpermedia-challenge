@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const Octokit = require('@octokit/rest')
 const parse = require('parse-link-header')
 const app = express()
-const port = process.env.PORT || 5000
+const port = 5000
 const octokit = new Octokit({
   auth: `token ${process.env.GITHUB_API_TOKEN}`,
 })
