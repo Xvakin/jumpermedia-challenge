@@ -1,18 +1,23 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-import logo from './logo.svg';
-import './App.css';
-import { dummyAction } from '../../actions/dummy';
+import logo from './logo.svg'
+import './App.css'
+import { getIssues } from '../../redux/modules/issues/actions'
 
 export class App extends Component {
+  componentDidMount() {
+    const { repo } = this.props
+    this.props.getIssues(repo)
+  }
+
   render() {
-    const { dummyAction, dummyFlag } = this.props;
-    console.log(this.props);
+    const { issues } = this.props
+    console.log(issues)
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          <img src={logo} className="App-logo" alt="logo"/>
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
@@ -26,16 +31,17 @@ export class App extends Component {
           </a>
         </header>
       </div>
-    );
+    )
   }
 }
 
 const mapStateToProps = (state) => ({
-    dummyFlag: state.dummy.dummyFlag
+  issues: state.issues.issues,
+  repo: state.issues.repo,
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  dummyAction: () => dispatch(dummyAction())
-});
+const mapDispatchToProps = ({
+  getIssues,
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App)
