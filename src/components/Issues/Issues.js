@@ -10,13 +10,16 @@ function Issues({ issues, error, loading, pagination, onPageChange }) {
       <div className="alert alert-warning">
         {error}
       </div>}
+
       {loading && <Loader/>}
+
+      {!loading && (!issues || issues.length === 0) &&
+      <div className="alert alert-warning">
+        No issues found
+      </div>}
+
       {!error && !loading && Array.isArray(issues) &&
       <div>
-        {issues.length === 0 &&
-        <div className="alert alert-warning">
-          No issues found
-        </div>}
         {issues.length > 0 &&
         <div>
           <table className="table">
