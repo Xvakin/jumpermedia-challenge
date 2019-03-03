@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-
-import logo from './logo.svg'
-import './App.css'
+import Issues from '../Issues/Issues'
 import { getIssues } from '../../redux/modules/issues/actions'
+import { issuesDataSelector } from '../../redux/modules/issues/selectors'
+import './App.css'
 
 export class App extends Component {
   componentDidMount() {
@@ -13,35 +14,26 @@ export class App extends Component {
 
   render() {
     const { issues } = this.props
-    console.log(issues)
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo"/>
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className="container">
+        <Issues issues={issues}/>
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  issues: state.issues.issues,
+  issues: issuesDataSelector(state),
   repo: state.issues.repo,
 })
 
 const mapDispatchToProps = ({
   getIssues,
 })
+
+App.propTypes = {
+  issues: PropTypes.array,
+  repo: PropTypes.string,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
