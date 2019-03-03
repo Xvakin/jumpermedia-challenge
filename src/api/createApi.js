@@ -10,7 +10,7 @@ export default function createApi() {
       })
       resolve(response.data)
     } catch (error) {
-      reject(error.response)
+      reject(error.response.data)
     }
   })
 
