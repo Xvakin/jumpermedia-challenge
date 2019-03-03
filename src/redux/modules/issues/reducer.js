@@ -1,5 +1,10 @@
 import { DEFAULT_REPO } from './consts'
-import { GET_ISSUES_REQUEST, GET_ISSUES_SUCCESS, GET_ISSUES_FAIL } from './types'
+import {
+  GET_ISSUES_REQUEST,
+  GET_ISSUES_SUCCESS,
+  GET_ISSUES_FAIL,
+  SET_REPO,
+} from './types'
 
 const initialState = {
   repo: DEFAULT_REPO,
@@ -25,6 +30,11 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         issuesError: action.error,
+      }
+    case SET_REPO:
+      return {
+        ...state,
+        repo: action.repo,
       }
     default:
       return state

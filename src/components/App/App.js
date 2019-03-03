@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Issues from '../Issues/Issues'
-import { getIssues } from '../../redux/modules/issues/actions'
+import { getIssues, setRepo } from '../../redux/modules/issues/actions'
 import { issuesDataSelector } from '../../redux/modules/issues/selectors'
 import './App.css'
 
@@ -12,14 +12,36 @@ export class App extends Component {
     this.props.getIssues(repo)
   }
 
+  handleRepoChange = (event) => {
+    const repo = event.target.value
+    this.props.setRepo(repo)
+  }
+
+  handleRepoFormSubmit = (event) => {
+    event.preventDefault()
+    const { repo } = this.props
+    this.props.getIssues(repo)
+  }
+
   render() {
-    const { issues } = this.props
+    const { issues, repo } = this.props
     return (
       <div className="app">
         <div className="container">
           <header>
             <h1>Github Issues</h1>
           </header>
+          <div className="filters">
+            <form className="form-inline" onSubmit={this.handleRepoFormSubmit}>
+              <label>Repo</label>
+              <input
+                className="form-control mx-sm-3"
+                placeholder="Repo"
+                value={repo}
+                onChange={this.handleRepoChange}/>
+              <button className="btn btn-primary" type="submit">Get issues</button>
+            </form>
+          </div>
           <main>
             <Issues issues={issues}/>
           </main>
@@ -36,6 +58,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = ({
   getIssues,
+  setRepo,
 })
 
 App.propTypes = {
