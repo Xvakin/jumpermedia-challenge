@@ -3,13 +3,15 @@ import {
   GET_ISSUES_REQUEST,
   GET_ISSUES_SUCCESS,
   GET_ISSUES_FAIL,
+  SET_ASSIGNEE,
   SET_REPO,
 } from './types'
 
 const initialState = {
-  repo: DEFAULT_REPO,
+  assignee: '',
   issues: null,
   issuesError: null,
+  repo: DEFAULT_REPO,
 }
 
 export default (state = initialState, action) => {
@@ -32,6 +34,11 @@ export default (state = initialState, action) => {
         issues: null,
         issuesError: action.error,
         loading: false,
+      }
+    case SET_ASSIGNEE:
+      return {
+        ...state,
+        assignee: action.assignee,
       }
     case SET_REPO:
       return {

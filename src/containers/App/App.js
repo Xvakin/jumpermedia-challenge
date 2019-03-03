@@ -2,8 +2,17 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Issues from '../../components/Issues/Issues'
-import { getIssues, setRepo } from '../../redux/modules/issues/actions'
-import { issuesDataSelector, issuesErrorSelector } from '../../redux/modules/issues/selectors'
+import {
+  getIssues,
+  setAssignee,
+  setRepo,
+} from '../../redux/modules/issues/actions'
+import {
+  assigneeSelector,
+  issuesDataSelector,
+  issuesErrorSelector,
+  repoSelector,
+} from '../../redux/modules/issues/selectors'
 import './App.css'
 
 export class App extends Component {
@@ -23,8 +32,20 @@ export class App extends Component {
     this.props.getIssues(repo)
   }
 
+  handleAssigneeChange = (event) => {
+    const assignee = event.target.value
+    this.props.setAssignee(assignee)
+  }
+
+  handleAssigneeFormSubmit = (event) => {
+    event.preventDefault()
+    const { assignee, repo } = this.props
+    this.props.getIssues(repo, assignee)
+  }
+
   render() {
     const {
+      assignee,
       issues,
       issuesError,
       repo,
@@ -35,16 +56,28 @@ export class App extends Component {
           <header>
             <h1>Github Issues</h1>
           </header>
-          <div className="filters">
-            <form className="form-inline" onSubmit={this.handleRepoFormSubmit}>
-              <label>Repo</label>
-              <input
-                className="form-control mx-sm-3"
-                placeholder="Repo"
-                value={repo}
-                onChange={this.handleRepoChange}/>
-              <button className="btn btn-primary" type="submit">Get issues</button>
-            </form>
+          <div className="row filters">
+            <div className="col-sm">
+              <form className="form-inline" onSubmit={this.handleRepoFormSubmit}>
+                <label className="mr-3">Repo</label>
+                <input
+                  className="form-control mr-3"
+                  placeholder="Repo"
+                  value={repo}
+                  onChange={this.handleRepoChange}/>
+                <button className="btn btn-primary" type="submit">Get issues</button>
+              </form>
+            </div>
+            <div className="col-sm">
+              <form className="form-inline" onSubmit={this.handleAssigneeFormSubmit}>
+                <input
+                  className="form-control mr-3"
+                  placeholder="Assignee"
+                  value={assignee}
+                  onChange={this.handleAssigneeChange}/>
+                <button className="btn btn-light" type="submit">Filter by assignee</button>
+              </form>
+            </div>
           </div>
           <main>
             <Issues
@@ -59,13 +92,15 @@ export class App extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  assignee: assigneeSelector(state),
   issues: issuesDataSelector(state),
   issuesError: issuesErrorSelector(state),
-  repo: state.issues.repo,
+  repo: repoSelector(state),
 })
 
 const mapDispatchToProps = ({
   getIssues,
+  setAssignee,
   setRepo,
 })
 
