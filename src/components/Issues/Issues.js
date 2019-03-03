@@ -1,15 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Pagination from '../Pagination/Pagination'
+import Loader from '../Loader/Loader'
 
-function Issues({ issues, pagination, onPageChange, error }) {
+function Issues({ issues, error, loading, pagination, onPageChange }) {
   return (
     <div>
       {error &&
       <div className="alert alert-warning">
         {error}
       </div>}
-      {!error && Array.isArray(issues) &&
+      {loading && <Loader/>}
+      {!error && !loading && Array.isArray(issues) &&
       <div>
         {issues.length === 0 &&
         <div className="alert alert-warning">
@@ -39,8 +41,7 @@ function Issues({ issues, pagination, onPageChange, error }) {
           </table>
           {pagination &&
           <Pagination {...pagination} onPageChange={onPageChange}/>}
-        </div>
-        }
+        </div>}
       </div>}
     </div>
   )

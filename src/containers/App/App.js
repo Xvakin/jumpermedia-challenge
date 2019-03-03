@@ -11,6 +11,7 @@ import {
   assigneeSelector,
   issuesDataSelector,
   issuesErrorSelector,
+  issuesLoadingSelector,
   issuesPaginationSelector,
   repoSelector,
 } from '../../redux/modules/issues/selectors'
@@ -55,6 +56,7 @@ export class App extends Component {
       issues,
       issuesError,
       issuesPagination,
+      issuesLoading,
       repo,
     } = this.props
     return (
@@ -90,6 +92,7 @@ export class App extends Component {
             <Issues
               error={issuesError}
               issues={issues}
+              loading={issuesLoading}
               onPageChange={this.handleIssuesPageChange}
               pagination={issuesPagination}
             />
@@ -103,6 +106,7 @@ export class App extends Component {
 const mapStateToProps = (state) => ({
   assignee: assigneeSelector(state),
   issues: issuesDataSelector(state),
+  issuesLoading: issuesLoadingSelector(state),
   issuesPagination: issuesPaginationSelector(state),
   issuesError: issuesErrorSelector(state),
   repo: repoSelector(state),
@@ -117,6 +121,7 @@ const mapDispatchToProps = ({
 App.propTypes = {
   issues: PropTypes.array,
   issuesError: PropTypes.string,
+  issuesLoading: PropTypes.bool,
   issuesPagination: PropTypes.object,
   repo: PropTypes.string,
 }

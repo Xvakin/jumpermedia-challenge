@@ -7,6 +7,8 @@ export const issuesDataSelector = path(['issues', 'issuesData', 'data'])
 
 export const issuesErrorSelector = path(['issues', 'issuesError', 'message'])
 
+export const issuesLoadingSelector = path(['issues', 'loading'])
+
 export const repoSelector = path(['issues', 'repo'])
 
 export const paginationSelector = state => {
