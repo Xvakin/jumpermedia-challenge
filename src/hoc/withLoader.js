@@ -1,19 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import Loader from '../components/Loader/Loader'
+import DefaultLoader from '../components/Loader/Loader'
 
 function getDisplayName(Wrapped) {
   return Wrapped.displayName || Wrapped.name || 'Component'
 }
 
-export default function withLoader(action) {
+export default function withLoader(action, Loader) {
   return function wrapWithLoader(Wrapped) {
     class WithLoader extends Component {
       render() {
         const { loading } = this.props
         if (loading) {
-          return <Loader/>
+          return Loader ? <Loader/> : <DefaultLoader/>
         }
         return <Wrapped {...this.props} />
       }
