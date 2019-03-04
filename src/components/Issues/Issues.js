@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Pagination from '../Pagination/Pagination'
-import Loader from '../Loader/Loader'
 
-function Issues({ issues, error, loading, pagination, onPageChange }) {
+function Issues({ issues, error, pagination, onPageChange }) {
   return (
     <div>
       {error &&
@@ -11,14 +10,12 @@ function Issues({ issues, error, loading, pagination, onPageChange }) {
         {error}
       </div>}
 
-      {loading && <Loader/>}
-
-      {!loading && (!issues || issues.length === 0) &&
+      {(!issues || issues.length === 0) &&
       <div className="alert alert-warning">
         No issues found
       </div>}
 
-      {!error && !loading && Array.isArray(issues) &&
+      {!error && Array.isArray(issues) &&
       <div>
         {issues.length > 0 &&
         <div>
