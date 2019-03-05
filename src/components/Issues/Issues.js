@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import IssueAssignee from '../IssueAssignee/IssueAssignee'
 import Pagination from '../Pagination/Pagination'
 
 function Issues({ issues, error, pagination, onPageChange }) {
@@ -23,7 +24,7 @@ function Issues({ issues, error, pagination, onPageChange }) {
             <thead>
             <tr>
               <th>Title</th>
-              <th>Assignee</th>
+              <th>Assignees</th>
             </tr>
             </thead>
             <tbody>
@@ -34,7 +35,16 @@ function Issues({ issues, error, pagination, onPageChange }) {
                     {issue.title}
                   </a>
                 </td>
-                <td>{issue.assignee ? issue.assignee.login : ''}</td>
+                <td>
+                  {issue.assignees.length > 0 && issue.assignees.map(assignee => (
+                      <div key={assignee.id} className="d-inline mr-3">
+                        <IssueAssignee {...assignee}/>
+                      </div>
+                    ),
+                  )}
+                  {issue.assignees.length === 0 && issue.assignee &&
+                  <IssueAssignee {...issue.assignee}/>}
+                </td>
               </tr>
             ))}
             </tbody>
