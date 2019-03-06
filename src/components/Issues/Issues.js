@@ -1,7 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 import IssueAssignee from '../IssueAssignee/IssueAssignee'
 import Pagination from '../Pagination/Pagination'
+
+const formatDate = date => moment(date).format('D MMM YYYY')
 
 function Issues({ issues, error, pagination, onPageChange }) {
   return (
@@ -34,6 +37,11 @@ function Issues({ issues, error, pagination, onPageChange }) {
                   <a href={issue.html_url} target="_blank" rel="noopener noreferrer">
                     {issue.title}
                   </a>
+                  <div>
+                    <small className="text-muted">
+                      #{issue.number} on {formatDate(issue.created_at)} by {issue.user.login}
+                    </small>
+                  </div>
                 </td>
                 <td>
                   {issue.assignees.length > 0 && issue.assignees.map(assignee => (
